@@ -8,27 +8,6 @@ public class QuizzLoader : MonoBehaviour
 	static public string Answers  = "Answers";
 	static public string Correct = "Correct";
 
-//	static private bool initted = false;
-//
-//	private void Awake()
-//	{
-//		Init();
-//	}
-//
-//	private void Init()
-//	{
-//		if(!initted)
-//		{
-//			initted = true;
-//
-//			TextAsset quizzTextAsset = Resources.Load<TextAsset>(QuizzFilePath);
-//
-//			QuestionsList.Questions = LoadQuestions(quizzTextAsset.text);
-//
-//			Resources.UnloadUnusedAssets();
-//		}
-//	}
-
 	public void LoadQuizz(string path)
 	{
 		string json;
@@ -77,9 +56,9 @@ public class QuizzLoader : MonoBehaviour
 			}
 		}
 
-		if (json.HasField (Correct) && json [Correct].IsNumber)
+		if (json.HasField (Correct) && json [Correct].IsString)
 		{
-			q.Correct = (int)json [Correct].i;
+			q.Correct = json [Correct].str;
 		}
 
 		return q;

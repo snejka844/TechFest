@@ -11,6 +11,8 @@ public class PlayerController : NetworkBehaviour
     [SyncVar]
     private int amountOfAnswers = 0;
 
+	private Stats stats;
+
 	public override void OnStartServer()
 	{
 		UIController.Instance.Populate ();
@@ -32,6 +34,8 @@ public class PlayerController : NetworkBehaviour
 		
 		if(isServer)
 		{
+			stats = gameObject.AddComponent<Stats> ();
+			stats.Setup ();
 			UIController.Instance.Populate ();
 			UIController.Instance.serverUI.SetActive(true);
 			UIController.Instance.clientUI.SetActive(false);
@@ -75,15 +79,16 @@ public class PlayerController : NetworkBehaviour
 
     public void OnAnswerSent(string username, string answer)
     {
-        CmdSendAnswer(username, answer);
+		CmdSendAnswer(username, answer, netId.Value);
         
         UIController.Instance.clientUI.SetActive(false);
     }
 
     [Command]
-    public void CmdSendAnswer(string username, string answer)
+	public void CmdSendAnswer(string username, string answer, uint networkId)
     {
         amountOfAnswers++;
+		stats.AddAnswer (username, answer, networkId);
 		Debug.Log(username + " answered with answer " + answer + " answers so far: " + amountOfAnswers + " out of " + (NetworkServer.connections.Count - 1));
 
         if(amountOfAnswers >= NetworkServer.connections.Count - 1)
