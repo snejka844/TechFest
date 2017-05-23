@@ -4,12 +4,12 @@ public class Question
 {
 	public string Text {get;set;}
     public string[] Answers {get;set;}
-    public int Correct { get; set; }
+    public string Correct { get; set; }
 
 	public Question()
 	{
-		Text = "";
+		Text = string.Empty;
 		Answers = new string[4];
-		Correct = -1;
+		Correct = string.Empty;
 	}
 }

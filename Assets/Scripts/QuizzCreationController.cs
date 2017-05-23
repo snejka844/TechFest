@@ -68,7 +68,8 @@ public class QuizzCreationController : MonoBehaviour
 			q.Answers[i] = answers[i].text;
 		}
 
-		q.Correct = int.Parse(correct.text);
+		//TODO switch with the correct input box depending on radio group
+		q.Correct = correct.text;
 	}
 
 	public void OnFinishClicked()
@@ -104,6 +105,8 @@ public class QuizzCreationController : MonoBehaviour
 		{
 			sw.Write (quizz.Print ());
 		}
+
+		//TODO return to main menu
 	}
 
 	public void OnForthClicked()
